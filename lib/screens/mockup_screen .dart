@@ -1,119 +1,180 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 
-// void main() => runApp(const MyApp());
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const MaterialApp(
-//       title: 'Onboarding Screen',
-//       home: OnboardingPage(),
-//     );
-//   }
-// }
-
-class OnboardingPage extends StatelessWidget {
-  const OnboardingPage({super.key});
-
+class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.orange.shade200, Colors.orange.shade100],
+      // AppBar with arrow & title
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context); // Add navigation functionality
+          },
+        ),
+        title: Text(
+          'Details',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 60.0), // Top spacing
-              Center(
-                child: Image.asset(
-                  'assets/images/', // Update with your custom image path
-                  height: 300.0, // Adjust to fit the screen
-                  width: 250.0, // Adjust as needed
-                ),
-              ),
-              const SizedBox(height: 0.0), // Spacing between image and text
-              const Text(
-                'Ageratum is a genus of 40 to 60 tropical and warm'
-                'temperate flowering annuals and perennials from '
-                'the family Asteraceae, tribe Eupatorieae.Most',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                  height: 20.0), // Spacing between title and subtitle
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                child: Text(
-                  'Add to cart',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.brown[700],
-                  ),
-                  textAlign: TextAlign.right,
-                ),
-              ),
-              const SizedBox(height: 0.0), // Spacing before button
-            ],
-          ),
-        ),
+        backgroundColor: Colors.white,
+        elevation: 2,
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(90.0),
-        child: SizedBox(
-          width: double.infinity, // Full width button
-          height: 55.0, // Adjust the height to match the design
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const NextPage()),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.black, // Black background
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0.0), // Rounded corners
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Centered Image Section
+              Container(
+                width: 180,
+                height: 180,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/image.png'),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color.fromARGB(255, 161, 161, 161).withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 6,
+                    ),
+                  ],
+                ),
               ),
-              padding: const EdgeInsets.symmetric(vertical: 15.0),
-            ),
-            child: const Text(
-              '',
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.white, // White text
+              SizedBox(height: 12),
+
+              // Name + Star Icon with Review Count
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Ageratum',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Icon(
+                    Icons.star,
+                    color: const Color.fromARGB(255, 157, 219, 248),
+                  ),
+                  SizedBox(width: 4),
+                  Text(
+                    '(268 Reviews)',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ],
               ),
-            ),
+              SizedBox(height: 12),
+
+              // Center-aligned Description Text
+              Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: Text(
+                  "Ageratum is a genus of 40 to 60 tropical and warm "
+                  "temperature flowering annuals and perennials from "
+                  "the family Asteraceae, tribe Eupatorieae. Most "
+                  "species are native to Central America.",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[700],
+                    height: 1.5,
+                  ),
+                  textAlign: TextAlign.center, // Ensures text is centered
+                ),
+              ),
+              SizedBox(height: 20),
+
+              // Four Feature Headings Section
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildFeatureItem('Size', 'Medium'),
+                    _buildFeatureItem('Plant', 'Orchid'),
+                    _buildFeatureItem('Height', '12.6'),
+                    _buildFeatureItem('Humidity', '82%'),
+                  ],
+                ),
+              ),
+              SizedBox(height: 30),
+
+              // Price and Add to Cart Section
+              Column(
+                children: [
+                  // Price Text
+                  Text(
+                    '\$39.99',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  // Add to Cart Button
+                  GestureDetector(
+                    onTap: () {
+                      print("Added to cart");
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.green,
+                      ),
+                      child: Text(
+                        'Add to Cart',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
     );
   }
-}
 
-class NextPage extends StatelessWidget {
-  const NextPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Next Page'),
-      ),
-      body: const Center(
-        child: Text('This is the next page.'),
-      ),
+  Widget _buildFeatureItem(String heading, String subtext) {
+    return Column(
+      children: [
+        Text(
+          heading,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color:Colors.green,
+          ),
+        ),
+        SizedBox(height: 4),
+        Text(
+          subtext,
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.grey[600],
+          ),
+        ),
+      ],
     );
   }
 }

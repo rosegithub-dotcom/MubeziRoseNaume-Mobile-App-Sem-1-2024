@@ -26,7 +26,38 @@ When changes are made to the code, Flutter quickly injects the updated source co
 *Hot reload
 *Rich UI Components
 
-(f)
+(f)A stateless widget does not hold or manage any state. It is immutable, meaning its properties do not change once it is
+ built. These widgets are ideal for static elements like text, icons, or layouts that don't require dynamic updates.
+ import 'package:flutter/material.dart';
+
+class GreetingWidget extends StatelessWidget {
+  final String greeting;
+
+  GreetingWidget({required this.greeting});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        greeting,
+        style: TextStyle(fontSize: 24, color: Colors.blue),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(title: Text('Stateless Widget Example')),
+      body: GreetingWidget(greeting: 'Hello, Flutter!'),
+    ),
+  ));
+}
+
+A stateful widget manages mutable state. It can change dynamically during its lifetime,
+ and the changes are reflected in the UI. These widgets are suitable for interactive or dynamic components like forms, 
+ sliders, or counters.
 (g)
 
 
